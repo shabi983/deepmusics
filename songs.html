@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <title>Audio Player Example</title>
+</head>
+<body>
+  
+
+<style type="text/css">
+  .gallery{
+    display: flex;
+     flex-wrap: wrap;
+     padding: 5px;
+     justify-content: center;
+  }
+
+  .musics{
+    margin: 5px;
+    flex:20%;
+    max-width: 20%;
+    position: relative;
+    border: 1px solid #ccc;
+  }
+
+  .musics:hover{
+    transform: scale(1.05);
+    transition: 0.1s;
+    transition-delay: 0.1s;
+  }
+
+  .musics h2{
+    padding:0;
+    margin: 0;
+    text-transform: uppercase;
+    padding-bottom:5px;
+  }
+
+  #audios{
+   width:-webkit-fill-available;
+  }
+
+  .musicsinfo{
+    padding: 10px;
+    text-align:left;
+    font-family: Arial;
+  }
+
+  .vjs-poster{
+    background-size: cover;
+  }
+
+    .download-btn {
+  position: absolute; /* Positions the button within its parent */
+  top: 10px; /* Distance from the top edge */
+  right: 10px; /* Distance from the right edge */
+  padding: 5px;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+    }
+    .download-btn:hover {
+      color: #0056b3;
+    }
+
+    .vjs-icon-play:before, .video-js .vjs-play-control .vjs-icon-placeholder:before, .video-js .vjs-big-play-button .vjs-icon-placeholder:before{
+      color:#007bff;
+    }
+
+
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#search-input,
+#keyword-dropdown {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+#no-results-alert {
+  margin-top: 10px;
+  display: none; /* Hidden by default */
+  color: red;
+  font-size: 16px;
+  text-align: center;
+}
+
+
+
+@media (max-width: 1100px) {
+  .musics{
+    flex:25%;
+    max-width: 25%;
+  }
+}
+
+@media (max-width: 780px) {
+  .musics{
+    flex:45%;
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 610px) {
+  .musics{
+    flex: -webkit-fill-available;
+    max-width: -webkit-fill-available;
+  }
+}
+
+@media (max-width: 450px) {
+  .musics{
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+</style>
+
+
+<div class="search-container">
+  <input
+    type="text"
+    id="search-input"
+    placeholder="Search music info..."
+    oninput="filterDivs()"
+  />
+
+
+    <select id="keyword-dropdown" onchange="filterByDropdown()">
+    <option value="">Select a keyword</option>
+    <option value="MXRCI">MXRCI</option>
+    <option value="Desi Crew">Desi Crew</option>
+    <option value="Proof">Proof</option>
+    <option value="Punjabi">Punjabi</option>
+    <option value="Lovegeet">Lovegeet</option>
+  </select>
+</div>
+
+<span id="no-results-alert" style="display: none; color: red; font-weight: bold;">
+  No results found.
+</span>
+
+<div class="gallery">
+   <!-- First Audio -->
+   <div class="musics"> 
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      controlsList="download"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/xX7lOa4PbfM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCSiNgAvFFUMMpW3RZCCswmvPkA6Q"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-10%20Outta%2010%20-%20Shipra%20Goyal%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+         <div class="musicsinfo">
+      <strong>Name:</strong> 10 Outta 10 <br />
+      <strong>Music by:</strong> Dj Flow <br />
+      <strong>Singer:</strong> Shipra Goyal, Amrit Maan <br />
+      <strong>Language:</strong> Punjabi <br />
+            <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+     </div>
+    </div>
+      
+      <div class="musics">
+              
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://pagalfree.com/images/12810%20Bande%20-%20George%20Sidhu%20128%20Kbps.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-10%20Bande%20-%20George%20Sidhu%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+    
+    <div class="musicsinfo">
+      <strong>Name:</strong> 10 Bande <br />
+      <strong>Music by:</strong> Dee Gaur <br />
+      <strong>Singer:</strong> George Sidhu <br />
+      <strong>Language:</strong> Punjabi <br />
+       <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+            <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/fUDTS1zrTjY/hq720.jpg"
+      id="audios">
+      <source
+         src="https://hindi.djpunjab.app/load-hindi/qHaYpoEYp5JNEhz3Eqb7Aw==/Mumkin%20To%20Nahi.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Mumkin To Nahi <br />
+      <strong>Music by:</strong>  S.A.B Records <br />
+      <strong>Singer:</strong> Sahir Ali Bagga <br />
+      <strong>Language:</strong> Hindi/Urdu <br />
+       <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+                  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/eg4jz2mn45Q/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-100%20Phere%20-%20Varinder%20Brar%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> 100 Phere <br />
+      <strong>Music by:</strong> MXRCI <br />
+      <strong>Singer:</strong> Varinder Brar <br />
+      <strong>Language:</strong> Punjabi <br />
+        <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+           </div>
+    </div>
+
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/aBISUAhfzTY/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-100%20Vaar%20-%20Lovegeet%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> 100 Vaar <br />
+      <strong>Music by:</strong> MXRCI <br />
+      <strong>Singer:</strong> Lovegeet <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/TAlZR9eZj1Y/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Bar%20Bar%20-%20Navjot%20Ft%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Bar Bar <br />
+      <strong>Music by:</strong> Proof <br />
+      <strong>Singer:</strong> Navjot, Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/9_M_uGcjZBc/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-13%20Pind%20-%20Rajvir%20Jawanda%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> 13 Pind <br />
+      <strong>Music by:</strong> Jassi X <br />
+      <strong>Singer:</strong> Rajvir Jawanda, Jasmeen Akhtar <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/9drYj5PQBzc/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-18%20-%20Inderbir%20Sidhu%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> 18 - Inderbir Sidhu <br />
+      <strong>Music by:</strong> Mr.Billa <br />
+      <strong>Singer:</strong> Inderbir Sidhu <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+    <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/09fwPHbZs2w/sddefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-18%20Saal%20-%20Deep%20Dosanjh%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> 18 Saal <br />
+      <strong>Music by:</strong> Deep Dosanjh <br />
+      <strong>Singer:</strong> Deep Dosanjh <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://pagalfree.com/images/128Dadde%20Di%20Dunali%20-%201st%20Step%20128%20Kbps.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Dadde%20Di%20Dunali%20-%201st%20Step%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Dadde Di Dunali <br />
+      <strong>Music by:</strong> Preet Romana PRP <br />
+      <strong>Singer:</strong> Preet Romana PRP <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+    <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/R9T8gzAGQtk/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Adhiya%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Adhiya <br />
+      <strong>Music by:</strong> Proof <br />
+      <strong>Singer:</strong> Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/3tqAP9Q2UY4/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Haan%20Haige%20Aa%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Haan Haige Aa <br />
+      <strong>Music by:</strong> Avvy Sra <br />
+      <strong>Singer:</strong> Karan Aujla, Gurlej Akhtar <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/xYEr_mtPLBU/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Koka%20vs%20Coca%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Koka vs Coca <br />
+      <strong>Music by:</strong> Jay Trak <br />
+      <strong>Singer:</strong> Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/APhfC2-SOfg/sddefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Kya%20Baat%20Hai%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Kya Baat Hai <br />
+      <strong>Music by:</strong> Goldy Desi Crew <br />
+      <strong>Singer:</strong> Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+   <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/Wb4c-uAZ0Dg/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Red%20Eyes%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Red Eyes <br />
+      <strong>Music by:</strong> Proof <br />
+      <strong>Singer:</strong> Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://static.toiimg.com/thumb/msid-75245197,width-1280,resizemode-4/75245197.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Sheikh%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Sheikh <br />
+      <strong>Music by:</strong> Manna <br />
+      <strong>Singer:</strong> Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+   <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/e74XedsdkE8/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Chithiyaan%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Chithiyaan <br />
+      <strong>Music by:</strong> Goldy Desi Crew <br />
+      <strong>Singer:</strong> Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/QdISwDvOp0E/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Dont%20Like%20-%20Karan%20Aujla%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Dont Like <br />
+      <strong>Music by:</strong> Goldy Desi Crew <br />
+      <strong>Singer:</strong> Goldy, Karan Aujla <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/ogqDIqcQh08/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Aam%20Jahe%20Munde%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Aam Jahe Munde <br />
+      <strong>Music by:</strong> Goldy Desi Crew <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+    <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/Gn5Myefd9YQ/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Munde%20Pind%20De%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Munde Pind De <br />
+      <strong>Music by:</strong> Agam Mann, Azeem Mann <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/TWZfJXn-PLE/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Shadgi%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Shadgi <br />
+      <strong>Music by:</strong> MixSingh <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/xeL-53uP09Q/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Neat%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Neat <br />
+      <strong>Music by:</strong> Yeah Proof <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+   <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/pkn2cAYWiq8/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Gussa%20Jatt%20Da%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Gussa Jatt Da <br />
+      <strong>Music by:</strong> Goldy Desi Crew <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/A9hB0PFnrG8/sddefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Till%20Death%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Till Death <br />
+      <strong>Music by:</strong> Yeah Proof <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/N_YVY2LGlHA/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Meri%20Marzi%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Meri Marzi <br />
+      <strong>Music by:</strong> Yeah Proof <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+     <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/qKI7-x8VkKA/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Ja%20Ve%20Ja%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Ja Ve Ja <br />
+      <strong>Music by:</strong> J-Statik <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+    <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/wgAAjiWr_BM/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Hor%20Dus%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Hor Dus <br />
+      <strong>Music by:</strong> Yeah Proof <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/9t5jScwRVTk/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-NO%20MORE%20SHADA%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> NO MORE SHADA <br />
+      <strong>Music by:</strong> Goldy Desi Crew, Satpal Malhi <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+   <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/o-cTzv1NZro/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Zindagi%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Zindagi <br />
+      <strong>Music by:</strong> Starboy <br />
+      <strong>Singer:</strong> Parmish Verma <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/LOyNlQj8wyM/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Lori%20-%20Parmish%20Verma%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Lori <br />
+      <strong>Music by:</strong> Gurmoh <br />
+      <strong>Singer:</strong> Bir Singh, Parmish Verma, Gurmoh <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/SXmUT3M___c/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Bad%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Bad <br />
+      <strong>Music by:</strong> Dev Ocean <br />
+      <strong>Singer:</strong> Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+  <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/vFOlq4rWnDk/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Bambiha%20Bole%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Bambiha Bole <br />
+      <strong>Music by:</strong> Ikwinder Singh <br />
+      <strong>Singer:</strong> Sidhu Moose Wala, Amrit Maan <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+   <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/ML4dyo-kPEk/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Dear%20Mama%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Dear Mama <br />
+      <strong>Music by:</strong> The Kidd <br />
+      <strong>Singer:</strong> Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+   <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/dfGW8N_JcFQ/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Game%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Game <br />
+      <strong>Music by:</strong> Vipul Kapoor <br />
+      <strong>Singer:</strong> Shooter Kahlon, Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/MhAVXo_cO_A/sddefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-My%20Block%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> My Block <br />
+      <strong>Music by:</strong> Byg Byrd <br />
+      <strong>Singer:</strong> Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/OyE08AVVyFs/hq720.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-No%20Worries%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> No Worries <br />
+      <strong>Music by:</strong> Game Changerz <br />
+      <strong>Singer:</strong> Sidhu Moose Wala , Raja Game Changerz <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/xNF1-t4LowI/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/320-Old%20Skool%20-%20Sidhu%20Moose%20Wala.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Old Skool <br />
+      <strong>Music by:</strong> Likewap <br />
+      <strong>Singer:</strong> Sidhu Moose Wala, Prem Dhillon <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/khBu-94O7E8/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Paapi%20-%20Rangrez%20Sidhu%20And%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Paapi <br />
+      <strong>Music by:</strong> The Kidd <br />
+      <strong>Singer:</strong> Rangrez Sidhu, Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/YysQixD6wL8/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Roti%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Roti <br />
+      <strong>Music by:</strong> The Kidd <br />
+      <strong>Singer:</strong> Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+ <div class="musics">
+   <!-- Second Audio -->
+   <audio
+      class="video-js vjs-default-skin"
+      data-setup='{}'
+      controls="true"
+      preload="auto" 
+      poster="https://i.ytimg.com/vi/2cLTT_bEqTg/maxresdefault.jpg"
+      id="audios">
+      <source
+         src="https://pagalfree.com/musics/128-Sanju%20-%20Sidhu%20Moose%20Wala%20128%20Kbps.mp3"
+         type="audio/mp3">
+      </audio>
+          <div class="musicsinfo">
+      <strong>Name:</strong> Sanju <br />
+      <strong>Music by:</strong> The Kidd <br />
+      <strong>Singer:</strong> Sidhu Moose Wala <br />
+      <strong>Language:</strong> Punjabi <br />
+ <button class="download-btn" onclick="downloadAudio(this)"> <i class="fa fa-download"></i> </button>
+    </div>
+    </div>
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+   <script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
+   
+
+   <script>
+      // Function to pause all audio elements
+      function pauseAllAudio(exclude) {
+         const audios = document.querySelectorAll('audio');
+         audios.forEach(audio => {
+            if (audio !== exclude && !audio.paused) {
+               audio.pause();
+            }
+         });
+      }
+
+      // Get all audio elements and attach event listeners
+      const audios = document.querySelectorAll('audio');
+      audios.forEach(audio => {
+         audio.addEventListener('play', function () {
+            pauseAllAudio(audio);  // Pause all other audios when one starts
+         });
+      });
+
+         function downloadAudio(button) {
+      // Find the parent .musics div
+      const musicDiv = button.closest('.musics');
+
+      // Find the <audio> element inside the .musics div
+      const audio = musicDiv.querySelector('audio');
+
+      // Get the source URL from the <audio> element
+      const audioSource = audio.querySelector('source').src;
+
+      // Create a temporary link to trigger the download
+      const tempLink = document.createElement('a');
+      tempLink.href = audioSource;
+      tempLink.download = 'music.mp3'; // Specify the download filename
+      tempLink.target = 'blank';
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+    }
+    
+
+function filterDivs() {
+  const query = document.getElementById("search-input").value.toLowerCase();
+  const musics = document.querySelectorAll(".musics");
+  const alertMessage = document.getElementById("no-results-alert");
+
+  let found = false;
+
+  musics.forEach((music) => {
+    const infoText = music.querySelector(".musicsinfo").innerText.toLowerCase();
+
+    if (infoText.includes(query)) {
+      music.style.display = "block"; // Show matching div
+      found = true; // At least one result found
+    } else {
+      music.style.display = "none"; // Hide non-matching div
+    }
+  });
+
+  // Display or hide the alert message
+  alertMessage.style.display = found ? "none" : "block";
+}
+
+function filterByDropdown() {
+  const selectedValue = document.getElementById("keyword-dropdown").value.toLowerCase();
+  const musics = document.querySelectorAll(".musics");
+  const alertMessage = document.getElementById("no-results-alert");
+
+  let found = false;
+
+  musics.forEach((music) => {
+    const infoText = music.querySelector(".musicsinfo").innerText.toLowerCase();
+
+    if (selectedValue === "" || infoText.includes(selectedValue)) {
+      music.style.display = "block"; // Show matching div
+      found = true; // At least one result found
+    } else {
+      music.style.display = "none"; // Hide non-matching div
+    }
+  });
+
+  // Display or hide the alert message
+  alertMessage.style.display = found ? "none" : "block";
+}
+
+
+
+
+   </script>
+
+</body>
+</html>
